@@ -18,7 +18,7 @@ def tick():
 
 # bot
 
-token = "NTYyMzE4NDU3Nzk5MDQ5MjM2.XKUasg.gISU0p7dmxfwMvDkYzXLbGjV2Bg"
+token = "x"
 
 client = commands.Bot(command_prefix = '.')
 
