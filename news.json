@@ -1,0 +1,496 @@
+{
+  "mad_cow": {
+    "info": "The agricultural industry is experiencing a new 'mad cow' disease",
+    "prices": {
+      "meat": 0.7,
+      "grain": 0.85,
+      "water": 0.95
+    }
+  },
+  "construction": {
+    "info": "New government policies are encouraging construction works",
+    "prices": {
+      "steel": 1.3,
+      "water": 1.15
+    }
+  },
+  "coal_plant": {
+    "info": "A large coal power station is under construction",
+    "prices": {
+      "coal": 1.3,
+      "steel": 1.15
+    },
+    "sequels": ["coal_plant_fail", "coal_plant_success"]
+  },
+  "coal_plant_fail": {
+    "info": "The coal plant has finished construction",
+    "prices": {
+      "coal": 0.4,
+      "steel": 0.95
+    },
+    "sequels": ["coal_plant_fail_msg"],
+    "is_sequel": 1
+  },
+  "coal_plant_success": {
+    "info": "The coal plant has finished construction",
+    "prices": {
+      "coal": 1.5
+    },
+    "sequels": ["coal_plant_success_msg"],
+    "is_sequel": 1
+  },
+  "coal_plant_fail_msg": {
+    "info": "Unfortunately, there was an explosion in the new coal plant, this has caused some health and safety concerns, so the country has turned away from coal power",
+    "prices": { },
+    "is_sequel": 1
+  },
+  "coal_plant_success_msg": {
+    "info": "The newly constructed coal power plant now accounts for 20% of all electricity generation",
+    "prices": { },
+    "is_sequel": 1
+  },
+  "oil_reserve": {
+    "info": "A large oil reserve has been found",
+    "prices": {
+      "oil": 1.15
+    }
+  },
+  "earthquake": {
+    "info": "An earthquake has damaged the capital city, many buildings were leveled",
+    "prices": {
+      "steel": 1.1,
+      "electronics": 1.05
+    }
+  },
+  "gold_reserve": {
+    "info": "A gold vein was unearthed in the north-west, miners have begun extraction",
+    "prices": {
+      "electronics": 1.1,
+      "steel": 0.975,
+      "coal": 0.975
+    }
+  },
+  "nuclear_plant": {
+    "info": "A nuclear fission plant is being constructed with the latest technology",
+    "prices": {
+      "nuclear": 1.3,
+      "steel": 1.05,
+      "coal": 0.85,
+      "electronics": 1.1
+    }
+  },
+  "wine_pest": {
+    "info": "Acres of vineyards have been ravaged by a new parasite",
+    "prices": {
+      "wine": 0.5
+    },
+    "sequels": [
+      "wine_improve", "wine_very_good"
+    ]
+  },
+  "wine_improve": {
+    "info": "Scientists are looking into the vineyard problems",
+    "prices": {
+      "wine": 1.3
+    },
+    "sequels": [
+      "wine_improve_msg"
+    ],
+    "is_sequel": 1
+  },
+  "wine_very_good": {
+    "info": "Scientists are looking into the vineyard problems",
+    "prices": {
+      "wine": 1.5
+    },
+    "sequels": [
+      "wine_very_good_msg"
+    ],
+    "is_sequel": 1
+  },
+  "wine_improve_msg": {
+    "info": "The vineyard parasite has been exterminated",
+    "prices": { },
+    "is_sequel": 1
+  },
+  "wine_very_good_msg": {
+    "info": "The vineyard parasite has been exterminated, and the scientists also invented a new device which has revolutionised the wine industry",
+    "prices": { },
+    "is_sequel": 1
+  },
+  "grain_tax": {
+    "info": "The government is introducing a grain tax",
+    "prices": {
+      "grain": 0.7
+    },
+    "sequels": [
+      "grain_tax_result"
+    ]
+  },
+  "grain_tax_result": {
+    "info": "Outraged at the new tax, the main grain producer has moved abroad",
+    "prices": {
+      "grain": 1.2
+    },
+    "is_sequel": 1
+  },
+  "article_50": {
+    "info": "After a recent referendum, the UK has decided to leave the EU",
+    "prices": {
+      "grain": 0.9,
+      "meat": 0.9,
+      "water": 0.9,
+      "steel": 0.95,
+      "nuclear": 1.1,
+      "coal": 1.1,
+      "wine": 0.85
+    },
+    "country": "uk",
+    "sequels": [
+      "second_referendum_remain", "second_referendum_leave", "no_deal"
+    ]
+  },
+  "second_referendum_remain": {
+    "info": "Public uproar at the governments failed negotiations have caused a second referendum to be held",
+    "prices": {
+      "grain": 1.2,
+      "meat": 1.5,
+      "water": 1.15,
+      "steel": 1.1,
+      "nuclear": 1.3,
+      "coal": 1.3,
+      "wine": 1.7
+    },
+    "is_sequel": 1,
+    "sequels": [
+      "sr_remain_msg"
+    ]
+  },
+  "second_referendum_leave": {
+    "info": "Public uproar at the governments failed negotiations have caused a second referendum to be held",
+    "prices": {
+      "grain": 0.75,
+      "meat": 0.75,
+      "water": 0.75,
+      "steel": 0.8,
+      "nuclear": 0.9,
+      "coal": 0.9,
+      "wine": 0.6
+    },
+    "is_sequel": 1,
+    "sequels": [
+      "sr_leave_msg"
+    ]
+  },
+  "no_deal": {
+    "info": "After two years, the government hasn't managed to propose a deal to the EU",
+    "prices": {
+      "grain": 0.5,
+      "meat": 0.5,
+      "water": 0.5,
+      "steel": 0.6,
+      "nuclear": 0.7,
+      "coal": 1.1,
+      "wine": 0.3
+    },
+    "is_sequel": 1
+  },
+  "sr_remain_msg": {
+    "info": "Luckily, the people voted to remain, article 50 has been cancelled",
+    "prices": { },
+    "is_sequel": 1
+  },
+  "sr_leave_msg": {
+    "info": "Despite the second referendum, the country has still voted to leave the EU",
+    "prices": { },
+    "is_sequel": 1
+  },
+  "hydroelectric": {
+    "info": "A hydroelectric dam is under construction",
+    "prices": {
+      "electronics": 1.2,
+      "water": 1.2
+    },
+    "sequels": [
+      "hydro_bad", "hydro_good"
+    ]
+  },
+  "hydro_good": {
+    "info": "The new hydroelectric dam is functioning well",
+    "prices": {
+      "water": 1.05,
+      "electronics": 1.05
+    },
+    "is_sequel": 1
+  },
+  "hydro_bad": {
+    "info": "The new hydroelectric dam has clogged up the river it was built on, causing mass pollution and water supply problems",
+    "prices": {
+      "water": 0.8
+    },
+    "is_sequel": 1
+  },
+  "neutrality": {
+    "info": "A legislation has been proposed to remove net neutrality in the USA, soon a vote will be held",
+    "country": "usa",
+    "prices": {
+      "electronics": 0.8
+    },
+    "sequels": [
+      "neutrality_gone", "neutrality_stay"
+    ]
+  },
+  "neutrality_gone": {
+    "info": "The net neutrality votes have taken place",
+    "prices": {
+      "electronics": 0.8
+    },
+    "is_sequel": 1,
+    "sequels": [
+      "neutrality_gone_msg"
+    ]
+  },
+  "neutrality_stay": {
+    "info": "The net neutrality votes have taken place",
+    "prices": {
+      "electronics": 1.8
+    },
+    "is_sequel": 1,
+    "sequels": [
+      "neutrality_stay_msg"
+    ]
+  },
+  "neutrality_gone_msg": {
+    "info": "The votes are in, and net neutrality has been removed. The internet presses f in unison",
+    "prices": { },
+    "is_sequel": 1
+  },
+  "neutrality_stay_msg": {
+    "info": "The votes are in, and net neutrality is still here! The internet rejoices, phone sales skyrocket",
+    "prices": {
+      "electronics": 1.15
+    },
+    "is_sequel": 1
+  },
+  "increasing_tensions": {
+    "info": "Financial problems in Europe are causing conflicts during negotiations",
+    "country": "france",
+    "prices": {
+      "arms": 1.3
+    }, 
+    "sequels": [
+      "france_broker", "germany_ultimatum"
+    ]
+  },
+  "france_broker": {
+    "info": "France has stepped in as a universal broker in europe, causing conflicts to calm down",
+    "prices": {
+      "arms": 0.6
+    },
+    "is_sequel": 1
+  },
+  "germany_ultimatum": {
+    "info": "Germany has been delivered an ultimatum to give up a large section of land in the Rhineland or France will declare war",
+    "prices": {
+      "arms": 1.35,
+      "meat": 0.5,
+      "grain": 0.5
+    },
+    "sequel": [
+      "its_war", "germany_give_in"
+    ],
+    "is_sequel": 1
+  },
+  "its_war": {
+    "info": "ITS WAR! France and the UK have begun invading Germany",
+    "prices": {
+      "arms": 1.2
+    },
+    "sequel": [
+      "germany_give_in"
+    ],
+    "is_sequel": 1
+  },
+  "germany_give_in": {
+    "info": "Germany gave in, the west Rhineland is now owned by France",
+    "prices": {
+      "coal": 0.8,
+      "steel": 0.75
+    },
+    "sequel": [
+      "france_derilect"
+    ],
+    "is_sequel": 1
+  },
+  "france_derilect": {
+    "info": "The steel and coal mines in the newly aquired west Rhineland are currently not functioning due to owners handing over land",
+    "prices": {
+      "coal": 1.2,
+      "steel": 1.2
+    },
+    "is_sequel": 1
+  },
+  "elon_musk": {
+    "info": "Elon Musk has announced a new TESLA model",
+    "prices": {
+      "steel": 0.95,
+      "coal": 0.95,
+      "oil": 0.95,
+      "electronics": 1.15
+    },
+    "country": "usa"
+  },
+  "trump": {
+    "info": "Donald Trump has announced that he will never tax coal",
+    "prices": {
+      "coal": 1.1,
+      "oil": 0.9
+    },
+    "country": "usa"
+  },
+  "putin": {
+    "info": "Russia has released a video of Putin drinking crude oil which went viral within 10 minutes",
+    "prices": {
+      "oil": 1.15
+    },
+    "country": "russia"
+  },
+  "theresa_may": {
+    "info": "Theresa May has been outed by Dodgy Dave for also taking part in the pork related initiation ceremony",
+    "prices": {
+      "meat": 0.9
+    },
+    "country": "uk"
+  },
+  "dr_p": {
+    "info": "Dr P International has announced a new product: Bacon Blunts",
+    "prices": {
+      "meat": 1.15
+    },
+    "country": "uk"
+  },
+  "china_revolution": {
+    "info": "After years of low wages, high pollution, and no internet, the people of China have revolted, the revolution is ongoing",
+    "prices": {
+      "coal": 0.85,
+      "steel": 0.85
+    },
+    "country": "china",
+    "sequels": [
+      "china_renewables", "china_militarised"
+    ]
+  },
+  "china_renewables": {
+    "info": "The revolution is over, the new ruling party has decided to reduce pollution by converting to more eco-friendly energy sources",
+    "prices": {
+      "coal": 0.9,
+      "steel": 1.05,
+      "nuclear": 1.2
+    },
+    "is_sequel": 1
+  },
+  "china_militarised": {
+    "info": "The revolution is over, the new ruling party is increasing spending on industry, and has even started to invade Mongolia",
+    "prices": {
+      "coal": 1.25,
+      "arms": 1.35
+    },
+    "is_sequel": 1
+  },
+  "africa_conflict": {
+    "info": "Conflict in Sudan ceases after a deal between the ethnic tribes had been agreed to, Major economic recovery schemes regarding agriculture have been proposed",
+    "prices": {
+      "grain": 1.2,
+      "meat": 1.1,
+      "water": 1.1,
+      "arms": 0.85
+    },
+    "country": "sudan",
+    "sequels": [
+      "africa_conflict_2"
+    ]
+  },
+  "africa_conflict_2": {
+    "info": "Sudan deal had been a massive success. Agriculture has skyrocketed, turning Sudan into Africa’s biggest agricultural exporter. Infrastructure development has started in order to cope with production",
+    "prices": {
+      "grain": 1.2,
+      "water": 1.2,
+      "steel": 1.1,
+      "arms": 0.9
+    },
+    "is_sequel": 1
+  },
+  "uganda_plant": {
+    "info": "New minor plant disease discovered in Uganda",
+    "prices": {
+      "grain": 0.9
+    },
+    "country": "uganda",
+    "sequels": [
+      "", "", "uganda_plant_2"
+    ]
+  },
+  "oil_sudan": {
+    "info": "Vast oil reserves discovered",
+    "prices": {
+      "oil": 0.8
+    },
+    "country": "sudan",
+    "sequel": [
+      "", "", "oil_sudan_2"
+    ]
+  },
+  "uganda_plant_2": {
+    "info": "Ugandan plant disease ravages Africa’s crops resulting in widespread famine and war",
+    "prices": {
+      "arms": 1.35,
+      "grain": 0.8
+    },
+    "is_sequel": 1
+  },
+  "oil_sudan_2": {
+    "info": "The size of the oil reserves causes massive destabilisation in the industry, slowly however, prices are returning to normal",
+    "prices": {
+      "oil": 1.15
+    },
+    "is_sequel": 1
+  },
+  "america_weapons": {
+    "info": "Scientists have discovered how to make self-sufficient robotic weapon systems",
+    "prices": {
+      "arms": 1.15,
+      "electronics": 1.25
+    },
+    "country": "usa",
+    "sequel": [
+      "un_weapons"
+    ]
+  },
+  "un_weapons": {
+    "info": "UN passes vote that bans fully automated weapon systems. America forced to repurpose 1000s of war robots",
+    "prices": {
+      "arms": 0.8,
+      "electronics": 0.9
+    },
+    "is_sequel": 1
+  },
+  "brazil_wine": {
+    "info": "Impressed by the taste of a local wine brand, billionaire entrepreneur Dr P decides to invest in the large scale production of said wine",
+    "prices": {
+      "wine": 1.35,
+      "water": 1.1
+    },
+    "country": "brazil",
+    "sequels": [
+      "brazil_youth"
+    ]
+  },
+  "brazil_youth": {
+    "info": "Massive vineyard provides 1000s of jobs and helps deter youth from joining gangs with the offer of stable jobs",
+    "prices": {
+      "wine": 1.1,
+      "arms": 0.9
+    },
+    "is_sequel": 1
+  }
+}
