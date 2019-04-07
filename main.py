@@ -160,6 +160,7 @@ async def tick_redisplay():
   await client.send_message(stock_channel, stock_market.get_stock_str())
 
   await balance_redisplay()
+  
 
 @client.command(pass_context = True)
 async def tick(ctx):
@@ -167,15 +168,18 @@ async def tick(ctx):
     return
   stock_market.tick()
   await tick_redisplay()
+  await client.send_message(ctx.message.channel, "Next turn @here")
 
 @client.command(pass_context = True)
 async def ready(ctx):
+  await client.send_message(ctx.message.channel, "Readied")
   if stock_market.ready_agent(ctx.message.author.id, True):
     await tick_redisplay()
-    await client.send_message(ctx.message.channel, "Next turn")
+    await client.send_message(ctx.message.channel, "Next turn @here")
 
 @client.command(pass_context = True)
 async def unready(ctx):
+  await client.send_message(ctx.message.channel, "Unreadied")
   stock_market.ready_agent(ctx.message.author.id, False)
 
 @client.command(pass_context = True)
