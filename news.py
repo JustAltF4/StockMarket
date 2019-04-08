@@ -8,13 +8,13 @@ RAND_CHANGE_MAX = 1.1
 change_mul = 1.5
 
 country_data = {
-  "usa": (1.2, 1.6),
-  "russia": (1.1, 1.5),
-  "germany": (1, 1.4),
-  "france": (0.9, 1.3),
-  "uk": (1.05, 1.35),
-  "mexico": (0.4, 0.6),
-  "ethiopia": (0.1, 0.3),
+  "usa": (1.25, 1.3),
+  "russia": (1.1, 1.15),
+  "germany": (1, 1.1),
+  "france": (0.95, 1.1),
+  "uk": (0.95, 1.05),
+  "mexico": (0.75, 0.85),
+  "ethiopia": (0.5, 0.7),
 }
 
 def gen_country_multipliers():
