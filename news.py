@@ -2,8 +2,8 @@ import random
 import json
 import math
 
-RAND_MIN = 0.9
-RAND_MAX = 1.1
+RAND_CHANGE_MIN = 0.9
+RAND_CHANGE_MAX = 1.1
 
 change_mul = 1.5
 
@@ -70,7 +70,7 @@ class News():
   
   def execute(self, stock_prices, extremity, current_news, country):
     for stock, change in self.price_changes.items():
-      mul = change ** (extremity * random.uniform(RAND_MIN, RAND_MAX) * change_mul)
+      mul = change ** (extremity * random.uniform(RAND_CHANGE_MIN, RAND_CHANGE_MAX) * change_mul)
       stock_prices[stock] = round(stock_prices[stock] * mul)
     if len(self.sequels) > 0:
       name = self.sequels[random.randrange(0, len(self.sequels))]
