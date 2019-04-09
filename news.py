@@ -5,7 +5,7 @@ import math
 RAND_CHANGE_MIN = 0.9 # random range for price change when executing news
 RAND_CHANGE_MAX = 1.1
 
-change_mul = 1.5
+change_mul = 0.5
 
 # initial importance ranges - how much news affects prices
 country_data = {
@@ -63,11 +63,11 @@ class NewsInstance():
   def get_str(self):
     return self.country.capitalize() + ": " + self.news.info
 
-  def execute(self, stock_prices, country_multipliers, current_news):
+  def execute(self, stock_objects, country_multipliers, current_news):
     extremity = 1
     if self.country in country_multipliers.keys():
       extremity = country_multipliers[self.country] # default is 1, some countries are set to have specific importances
-    return self.news.execute(stock_prices, extremity, current_news, self.country) # execute via template
+    return self.news.execute(stock_objects, extremity, current_news, self.country) # execute via template
 
 # template objects
 class News():
@@ -79,13 +79,17 @@ class News():
     self.force_country = False
   
   # takes and modifies stock prices
-  def execute(self, stock_prices, extremity, current_news, country):
-    for stock, change in self.price_changes.items():
+  def execute(self, stock_objects, extremity, current_news, country):
+    for stock_object in stock_objects:
       # works out how to change stock prices
-      mul = change ** (extremity * random.uniform(RAND_CHANGE_MIN, RAND_CHANGE_MAX) * change_mul)
-      stock_prices[stock] = round(stock_prices[stock] * mul) # modify stock prices and round
+      tmp_mul = 1
+      if country == stock_object.country:
+        tmp_mul = 1.2
+      mul = self.price_changes[stock_object.name] ** (extremity * change_mul) * tmp_mul * random.uniform(RAND_CHANGE_MIN, RAND_CHANGE_MAX)
+      print(mul)
+      stock_object.price *= mul  # modify stock prices
     if len(self.sequels) > 0: # if there are sequels
       name = self.sequels[random.randrange(0, len(self.sequels))]
       if name != "":
         current_news.append(gen_instance(name, country)) # adds a random sequel to the stock markets news
-    return stock_prices
+    return stock_objects
