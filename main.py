@@ -20,7 +20,7 @@ def tick():
 
 # bot
 
-token = "x"
+token = "NTYyMzE4NDU3Nzk5MDQ5MjM2.XKUasg.gISU0p7dmxfwMvDkYzXLbGjV2Bg"
 
 client = commands.Bot(command_prefix = '.')
 
@@ -188,7 +188,7 @@ async def tick(ctx):
     return
   stock_market.tick() # process
   await tick_redisplay() # refresh
-  await client.send_message(ctx.message.channel, "Next turn @everyone")
+  #await client.send_message(ctx.message.channel, "Next turn @everyone")
 
 # user command to ready for next turn
 @client.command(pass_context = True)

@@ -3,19 +3,20 @@ import math
 import news
 from agent import Agent
 from stock import Stock
+import json
 
 # initial price ranges
 stock_data = {
-  "oil": range(14, 22),
-  "electronics": range(6, 12),
-  "meat": range(4, 14),
-  "grain": range(4, 14),
-  "water": range(8, 16),
-  "steel": range(8, 18),
-  "nuclear": range(2, 10),
-  "coal": range(8, 16),
-  "wine": range(4, 10),
-  "arms": range(4, 8)
+  "oil": range(120, 180),
+  "electronics": range(100, 150),
+  "meat": range(80, 120),
+  "grain": range(50, 110),
+  "water": range(90, 130),
+  "steel": range(100, 150),
+  "nuclear": range(50, 100),
+  "coal": range(100, 130),
+  "wine": range(50, 80),
+  "arms": range(50, 80)
 }
 
 def gen_rand_stock_name():
@@ -23,18 +24,28 @@ def gen_rand_stock_name():
     chr(random.randrange(65, 91)) for i in range(random.randrange(3, 5))
   ])
 
-company_count = 3 # per stock type
+company_count = 2 # per stock type
+
+# load stock names from file
+def load_stock_objects():
+  with open("stocks.json", "r") as read_file:
+    loaded_data = json.loads(read_file.read())
+  stock_objects = []
+  for name, data in loaded_data.items():
+    stock_objects.append(Stock(name, random.choice(stock_data[data["type"]]), data["type"], data["country"]))
+  return stock_objects
 
 # generate values based on price ranges
 def gen_stock_objects():
   stock_objects = []
   for key, v_range in stock_data.items():
-    stock_objects.append(Stock(gen_rand_stock_name(), random.choice(v_range), key, random.choice(list(news.country_data.keys()))))
+    for _ in range(0, company_count):
+      stock_objects.append(Stock(gen_rand_stock_name(), random.choice(v_range), key, random.choice(list(news.country_data.keys()))))
   return stock_objects
 
 # helper to initialise a stock market object
 def gen_stock_market(news_count):
-  return StockMarket(gen_stock_objects(), news.gen_country_multipliers(), news_count)
+  return StockMarket(load_stock_objects(), news.gen_country_multipliers(), news_count)
 
 RAND_FLUCT_MIN = 0.9 # random range in which stock prices fluctuate each tick
 RAND_FLUCT_MAX = 1.1
@@ -67,7 +78,7 @@ class StockMarket():
   # returns total value of owned stocks based on stock prices
   def get_total_value(self, owned_stocks):
     return sum([
-        v * self.stock_prices[k] for k, v in owned_stocks.items() 
+        owned_stocks[stock_object.name] * stock_object.price for stock_object in self.stock_objects
       ])
 
   # process agent buying stock
@@ -81,7 +92,7 @@ class StockMarket():
       return
     tmp_stock = None
     for stock_object in self.stock_objects:
-      if stock_object.name == stock:
+      if stock_object.name.split(" ")[0].lower() == stock.split(" ")[0].lower():
         tmp_stock = stock_object
         break
     if tmp_stock == None:
@@ -100,7 +111,7 @@ class StockMarket():
       return
     tmp_stock = None
     for stock_object in self.stock_objects:
-      if stock_object.name == stock:
+      if stock_object.name.split(" ")[0].lower() == stock.split(" ")[0].lower():
         tmp_stock = stock_object
         break
     if tmp_stock == None:
@@ -149,7 +160,7 @@ class StockMarket():
   # add agent to stock market agents
   def add_agent(self, agent):
     self.agents.append(agent)
-    agent.owned_stocks = {key: 0 for key in stock_data.keys()}
+    agent.owned_stocks = {stock_object.name: 0 for stock_object in self.stock_objects}
 
   # fill news up to count
   def add_news(self, count):
@@ -209,7 +220,11 @@ class StockMarket():
   # get string for stock prices
   def get_stock_str(self):
     output = "Turn: " + str(self.tick_counter) + "\n**Stock prices:**\n"
+    last = ""
     for stock_object in self.stock_objects:
-      change = stock_object.price - self.last_stock_prices[name]
-      output += name.capitalize() + ": " + str(value) + "(" + ("+" if change >= 0 else "") + str(change) + ")\n"
+      if stock_object.stock_type != last:
+        last = stock_object.stock_type
+        output += "\n**" + last.capitalize() + "**:\n"
+      change = stock_object.price - self.last_stock_prices[stock_object.name]
+      output += stock_object.name + "(" + stock_object.country.capitalize() + "): " + str(stock_object.price) + "(" + ("+" if change >= 0 else "") + str(change) + ")\n"
     return output

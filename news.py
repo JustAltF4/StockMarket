@@ -5,7 +5,7 @@ import math
 RAND_CHANGE_MIN = 0.9 # random range for price change when executing news
 RAND_CHANGE_MAX = 1.1
 
-change_mul = 0.5
+change_mul = 0.35
 
 # initial importance ranges - how much news affects prices
 country_data = {
@@ -82,10 +82,12 @@ class News():
   def execute(self, stock_objects, extremity, current_news, country):
     for stock_object in stock_objects:
       # works out how to change stock prices
+      if stock_object.stock_type not in self.price_changes.keys():
+        continue
       tmp_mul = 1
       if country == stock_object.country:
         tmp_mul = 1.2
-      mul = self.price_changes[stock_object.name] ** (extremity * change_mul) * tmp_mul * random.uniform(RAND_CHANGE_MIN, RAND_CHANGE_MAX)
+      mul = self.price_changes[stock_object.stock_type] ** (extremity * change_mul * tmp_mul * random.uniform(RAND_CHANGE_MIN, RAND_CHANGE_MAX))
       print(mul)
       stock_object.price *= mul  # modify stock prices
     if len(self.sequels) > 0: # if there are sequels

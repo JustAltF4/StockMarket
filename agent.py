@@ -1,4 +1,4 @@
-
+# 
 # represents trading user
 class Agent():
   def __init__(self, name, balance, display_name):

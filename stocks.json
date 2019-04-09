@@ -1,0 +1,82 @@
+{
+  "RSO RedSky Oil": {
+    "country": "usa",
+    "type": "oil"
+  },
+  "TOR Torbel Oil": {
+    "country": "germany",
+    "type": "oil"
+  },
+  "BRT Britannia Technologies": {
+    "country": "uk",
+    "type": "electronics"
+  },
+  "YUH Yuhan": {
+    "country": "china",
+    "type": "electronics"
+  },
+  "DPI Dr P International": {
+    "country": "uk",
+    "type": "meat"
+  },
+  "AUB 100% Australian Beef": {
+    "country": "australia",
+    "type": "meat"
+  },
+  "DAOA Daoud Oats": {
+    "country": "sudan",
+    "type": "grain"
+  },
+  "RIEL Rienlire": {
+    "country": "france",
+    "type": "grain"
+  },
+  "ARAQ Arsenov Aqua": {
+    "country": "russia",
+    "type": "water"
+  },
+  "AVI Avian": {
+    "country": "france",
+    "type": "water"
+  },
+  "JIA Jiawei": {
+    "country": "china",
+    "type": "steel"
+  },
+  "AFAB AltoFabrico": {
+    "country": "italy",
+    "type": "steel"
+  },
+  "KIHI Kido-Hisayuki": {
+    "country": "japan",
+    "type": "nuclear"
+  },
+  "BRDA Brun & Dach": {
+    "country": "germany",
+    "type": "nuclear"
+  },
+  "OPA Opal": {
+    "country": "india",
+    "type": "coal"
+  },
+  "VOD Vodamur": {
+    "country": "russia",
+    "type": "coal"
+  },
+  "PEN Penfolds": {
+    "country": "australia",
+    "type": "wine"
+  },
+  "CAP Capensisc": {
+    "country": "south africa",
+    "type": "wine"
+  },
+  "KALA Kalashnikov": {
+    "country": "russia",
+    "type": "arms"
+  },
+  "TAE TAE": {
+    "country": "us",
+    "type": "arms"
+  }
+}
