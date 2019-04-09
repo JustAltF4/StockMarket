@@ -33,8 +33,8 @@ RAND_FLUCT_MAX = 1.1
 
 # stock market object - basically stores everything
 class StockMarket():
-  def __init__(self, stock_prices, country_multipliers, news_count, agents = [], start_add_news = True, tick_on_ready = True):
-    self.stock_prices = stock_prices
+  def __init__(self, stock_objects, country_multipliers, news_count, agents = [], start_add_news = True, tick_on_ready = True):
+    self.stock_objects = stock_objects
     self.last_stock_prices = stock_prices
     self.country_multipliers = country_multipliers
     self.current_news = [] # news instances currently in use
@@ -68,10 +68,18 @@ class StockMarket():
     for agent in self.agents:
       if agent.name == name: # find correct user
         tmp = agent
+        break
     if tmp == None: # if user does not exist, exit
       return
+    tmp_stock = None
+    for stock_object in self.stock_objects:
+      if stock_object.name == stock:
+        tmp_stock = stock_object
+        break
+    if tmp_stock == None:
+      return
     tmp.owned_stocks[stock] += amount # add stock
-    tmp.balance -= amount * self.stock_prices[stock] # take away from balance
+    tmp.balance -= amount * stock_object.price # take away from balance
   
   # process agent selling stock
   def sell(self, name, stock, amount):
@@ -79,10 +87,18 @@ class StockMarket():
     for agent in self.agents:
       if agent.name == name: # find correct user
         tmp = agent
+        break
     if tmp == None: # if user does not exist, exit
       return
+    tmp_stock = None
+    for stock_object in self.stock_objects:
+      if stock_object.name == stock:
+        tmp_stock = stock_object
+        break
+    if tmp_stock == None:
+      return
     tmp.owned_stocks[stock] -= amount # remove stock
-    tmp.balance += amount * self.stock_prices[stock] # add balance
+    tmp.balance += amount * stock_object.price # add to balance
 
   # get list of stocks from specific agent
   def get_agent_stock_str(self, name):
@@ -158,31 +174,20 @@ class StockMarket():
 
   # process tick
   def tick(self, add_more_news = True, unready_all = True):
-    self.last_stock_prices = {k: v for k, v in self.stock_prices.items()} # duplicate stocks object
+    self.last_stock_prices = {stock_object.name: stock_object.price for stock_object in self.stock_objects} # duplicate stocks object
     tmp_news = self.current_news[:] # duplicate news
     self.current_news = []
     for news in tmp_news:
-      self.stock_prices = news.execute(self.stock_prices, self.country_multipliers, self.current_news) # update stock prices based on news
+      self.stock_objects = news.execute(self.stock_objects, self.country_multipliers, self.current_news) # update stock prices based on news
     if add_more_news:
       self.add_news(self.news_count) # fill up news
-    for name, price in self.stock_prices.items():
-      self.stock_prices[name] = round(price * random.uniform(RAND_FLUCT_MIN, RAND_FLUCT_MAX)) # random fluctuations
-      if self.stock_prices[name] == price:
-        if random.uniform(0, 1) > 0.5:
-          self.stock_prices[name] += 1
-        else:
-          self.stock_prices[name] -= 1 # small fluctuation if value is too small to be affected by percentage change
+    
     if unready_all:
       for agent in self.agents:
         agent.ready = False # set agents to unready for next turn
-    
-    # make stocks come back to original values
-    for name, value in self.stock_prices.items():
-      if value not in stock_data[name]:
-        middle = float(stock_data[name][0] + stock_data[name][-1]) / 2.0
-        self.stock_prices[name] = round(value + (float(middle) - float(value)) * 0.225)
-      if self.stock_prices[name] <= 0: # make sure stocks arent 0 or negative
-        self.stock_prices[name] = 1
+        
+    for stock_object in self.stock_objects:
+      stock_object.tick()
 
     self.tick_counter += 1 # increase turn counter
    
@@ -196,7 +201,7 @@ class StockMarket():
   # get string for stock prices
   def get_stock_str(self):
     output = "Turn: " + str(self.tick_counter) + "\n**Stock prices:**\n"
-    for name, value in self.stock_prices.items():
-      change = value - self.last_stock_prices[name]
+    for stock_object in self.stock_objects:
+      change = stock_object.price - self.last_stock_prices[name]
       output += name.capitalize() + ": " + str(value) + "(" + ("+" if change >= 0 else "") + str(change) + ")\n"
     return output
