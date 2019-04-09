@@ -2,6 +2,7 @@ import random
 import math
 import news
 from agent import Agent
+from stock import Stock
 
 # initial price ranges
 stock_data = {
@@ -17,16 +18,23 @@ stock_data = {
   "arms": range(4, 8)
 }
 
+def gen_rand_stock_name():
+  return "".join([
+    chr(random.randrange(65, 91)) for i in range(random.randrange(3, 5))
+  ])
+
+company_count = 3 # per stock type
+
 # generate values based on price ranges
-def gen_stock_prices():
-  stock_prices = {}
+def gen_stock_objects():
+  stock_objects = []
   for key, v_range in stock_data.items():
-    stock_prices[key] = random.choice(v_range)
-  return stock_prices
+    stock_objects.append(Stock(gen_rand_stock_name(), random.choice(v_range), key, random.choice(list(news.country_data.keys()))))
+  return stock_objects
 
 # helper to initialise a stock market object
 def gen_stock_market(news_count):
-  return StockMarket(gen_stock_prices(), news.gen_country_multipliers(), news_count)
+  return StockMarket(gen_stock_objects(), news.gen_country_multipliers(), news_count)
 
 RAND_FLUCT_MIN = 0.9 # random range in which stock prices fluctuate each tick
 RAND_FLUCT_MAX = 1.1
