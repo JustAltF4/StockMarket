@@ -43,7 +43,7 @@ RAND_FLUCT_MAX = 1.1
 class StockMarket():
   def __init__(self, stock_objects, country_multipliers, news_count, agents = [], start_add_news = True, tick_on_ready = True):
     self.stock_objects = stock_objects
-    self.last_stock_prices = stock_prices
+    self.last_stock_prices = {stock_object.name: stock_object.price for stock_object in self.stock_objects}
     self.country_multipliers = country_multipliers
     self.current_news = [] # news instances currently in use
     self.unused_news = [] # list of [name, country] of unused news stories
