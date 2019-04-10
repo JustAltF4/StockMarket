@@ -5,14 +5,16 @@ import discord
 from discord.ext import commands
 
 stock_market = None
+stock_names = []
 
 news_count = 4
 
 def init():
-  global stock_market
+  global stock_market, stock_names
   news.load_news()
 
   stock_market = stocks.gen_stock_market(news_count) # initialises stock prices
+  stock_names = {k.split(" ")[0].lower() for k in stock_market.last_stock_prices.keys()}
 
 def tick():
   global stock_market
@@ -80,7 +82,7 @@ async def setunafk(ctx, name):
 @client.command(pass_context = True)
 async def buy(ctx, stock, amount):
   amount = int(amount)
-  if stock in stocks.stock_data.keys(): # if they entered a valid stock
+  if stock.split(" ")[0].lower() in stock_names: # if they entered a valid stock
     bal = stock_market.get_agent_balance(ctx.message.author.id)
     if bal >= stock_market.stock_prices[stock] * amount: # if they have enough money
       stock_market.buy(ctx.message.author.id, stock.lower(), amount) # process purchase
@@ -113,7 +115,7 @@ async def sell(ctx, stock, amount):
 
 # function to sell amount of stock
 async def sell_stock(ctx, stock, amount, display = True):
-  if stock in stocks.stock_data.keys():
+  if stock.split(" ")[0].lower() in stock_names:
     u_amount = stock_market.get_agent_stock(ctx.message.author.id, stock)
     if u_amount >= amount:
       stock_market.sell(ctx.message.author.id, stock.lower(), amount)
